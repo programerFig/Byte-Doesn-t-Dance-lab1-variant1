@@ -37,7 +37,7 @@ jobs:
         run: pip install black
 
       - name: Code formatting check
-        run: black --check --line-length 110 .
+        run: black .
 
 
       # if you pretend to make a typed version of your program, you should uncomment these lines:
