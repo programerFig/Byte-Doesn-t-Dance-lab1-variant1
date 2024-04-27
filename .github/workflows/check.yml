@@ -17,24 +17,31 @@ jobs:
 
       - name: Install development environment
         run: pip install pytest coverage pycodestyle pyflakes mypy
-      
+
       - name: Run tests and show coverage report
         run: |
           coverage run -m pytest --verbose
           coverage report *.py
 
       - name: Check code style
-        run: pycodestyle .
+        run: pycodestyle --max-line-length=110 --ignore=E203 .
 
       - name: Check python file for typical errors
         run: pyflakes .
 
       # type annotation checks
       - name: Type checks
-        run: mypy .
+        run: mypy . --strict
 
-      # if you pretend to make a typed version of your program, you should uncomment these lines:  
-      # - name: Strict type checks 
+      - name: Code formatting install
+        run: pip install black
+
+      - name: Code formatting check
+        run: black --check --line-length 110 .
+
+
+      # if you pretend to make a typed version of your program, you should uncomment these lines:
+      # - name: Strict type checks
       #   run: mypy . --strict
 
   markdown:
